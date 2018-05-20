@@ -17,4 +17,4 @@ parameters:
     mailer_password: maya007$
 
     # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: 3bdc6d4b02e706cacbad489d67bb2948cb700c26
