@@ -1,0 +1,25 @@
+
+<div class="well ">
+
+
+
+
+
+
+    <p>{{ 'prénom'|trans }}: {{ user.firstname }}</p>
+    <p>{{ 'nom'|trans }}: {{ user.name }}</p>
+    <p>{{ 'email'|trans }}: {{ user.email }}</p>
+    <p>{{ 'téléphone'|trans }}: {{ user.phone }}</p>
+    <fieldset>
+        <legend>Adresse</legend>
+        <p>{{ user.streetnumber }} {{ user.channeltype }} {{ user.street }}</p>
+        <p>{{ user.postalcode }} {{ user.city }} {{ user.country }} </p>
+    </fieldset>
+    <div class="form-group">
+
+    </div>
+    <div class="form-group">
+
+    </div>
+
+</div>

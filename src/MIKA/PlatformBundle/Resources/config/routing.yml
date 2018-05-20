@@ -1,0 +1,109 @@
+
+mika_platform_home:
+    path:    /
+    defaults:
+        _controller: MIKAPlatformBundle:Product:index
+
+mika_platform_view:
+    path:    /platform
+    defaults:
+        _controller: MIKAPlatformBundle:Product:view
+    requirements:
+        id:    \d+
+
+mika_platform_detail:
+    path:    /platform/product/{id}
+    defaults:
+        _controller: MIKAPlatformBundle:Product:detail
+    requirements:
+        id:    \d+
+
+mika_platform_add:
+    path:    /platform/add
+    defaults:
+        _controller: MIKAPlatformBundle:Product:add
+
+mika_platform_addcategory:
+    path:    /platform/addcategory
+    defaults:
+        _controller: MIKAPlatformBundle:Product:addcategory
+
+mika_platform_edit:
+    path:    /platform/edit/{id}
+    defaults:
+        _controller: MIKAPlatformBundle:Product:edit
+    requirements:
+        id:    \d+
+
+mika_platform_delete:
+    path:    /platform/delete/{id}
+    defaults:
+        _controller: MIKAPlatformBundle:Product:delete
+    requirements:
+        id:    \d+
+
+mika_platform_panier:
+    path:    /platform/panier
+    defaults:
+        _controller: MIKAPlatformBundle:Panier:panier
+
+mika_platform_add_panier:
+    path:    /platform/addPanier/{id}
+    defaults:
+        _controller: MIKAPlatformBundle:Panier:addPanier
+
+mika_platform_delete_panier:
+    path:    /platform/deletePanier/{id}
+    defaults:
+        _controller: MIKAPlatformBundle:Panier:deletePanier
+
+mika_platform_livraison:
+    path:    /platform/livraison
+    defaults:
+        _controller: MIKAPlatformBundle:Panier:livraison
+
+mika_platform_validation:
+    path:    /platform/validation
+    defaults:
+        _controller: MIKAPlatformBundle:Panier:validation
+
+mika_platform_categorieProduct:
+    path:    /platform/categories/{categories}
+    defaults:
+        _controller: MIKAPlatformBundle:Product:view
+
+mika_platform_researchProduct:
+    path:    /platform/research
+    defaults:
+        _controller: MIKAPlatformBundle:Product:researchTreatment
+
+mika_platform_validation_commande:
+    path:    /platform/apibanque/{id}
+    defaults:
+        _controller: MIKAPlatformBundle:Commande:validationCommande
+
+mika_platform_adminCommande:
+    path:    /platform/admin/commande
+    defaults:
+        _controller: MIKAPlatformBundle:CommandeAdmin:commandes
+
+mika_platform_adminShowFacture:
+    path:    /platform/facture/{id}
+    defaults:
+        _controller: MIKAPlatformBundle:CommandeAdmin:showFacture
+
+mika_platform_adminUser:
+    path:    /platform/user
+    defaults:
+        _controller: MIKAUserBundle:UserAdmin:index
+
+mika_platform_adminUserDetail:
+    path:    /platform/user/{id}
+    defaults:
+        _controller: MIKAUserBundle:UserAdmin:user
+
+mika_platform_adminFactureUser:
+    path:    /platform/factureAdmin/{id}
+    defaults:
+        _controller: MIKAUserBundle:UserAdmin:user
+

@@ -1,0 +1,32 @@
+form.name: Nom
+form.firstname: Prénom
+form.streetnumber: Numéro de rue
+form.channeltype: Type de voie
+form.street: Voie
+form.postalcode: Code postal
+form.city: Ville
+form.country: Pays
+form.phone: Téléphone
+form.username: Pseudo
+registration.submit: Créer votre compte
+firstname: Prénom
+name: Nom
+streetnumber: Numéro
+channeltype: Type de voie
+street: Voie
+postalcode: Code postal
+city: Ville
+country: Pays
+phone: Téléphone
+email: Adresse e-mail
+rue: rue
+avenue: avenue
+boulevard: boulevard
+allée: allée
+square: square
+Le mot de passe a été réinitialisé avec succès.: Le mot de passe a été réinitialisé avec succès.
+L'utilisateur a été créé avec succès.: L'utilisateur a été créé avec succès.
+France: France
+profile:
+  edit:
+    submit: 'Mettre à jour'

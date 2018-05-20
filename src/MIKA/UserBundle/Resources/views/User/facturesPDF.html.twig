@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Facture</title>
+    <link href="{{ asset('bundles/mikauser/css/facture.css') }}" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        h1 {
+            position:absolute;
+            color:#8dcc0f;
+            font-size:50px;  }
+
+        .center {
+            text-align:center;
+        }
+
+        .strong {
+            font-weight:bold;
+        }
+        .min {
+            font-size:10px;
+        }
+
+        img {
+            position:absolute;
+            top:30px;
+            left:30px;
+            width: 200px;
+        }
+
+        ul#coordonnes {
+            float:left;
+            margin-top:30px;
+            margin-left:400px;
+            list-style:none;
+        }
+
+        ul#coordonnes li {
+            height:20px;
+        }
+
+        table#enTete {
+            position:absolute;
+            top:5px;
+            right:330px;
+            text-align:center;
+        }
+
+        table#enTete h1 {
+            color: #8dcc0f;
+            font-weight:bold;
+            font-size:20px;
+        }
+
+        table#entity {
+            float:left;
+            margin-top:30px;
+            text-align:center;
+        }
+
+        table#entity td {
+            height:45px;
+            border-bottom:1px solid #8dcc0f;
+        }
+
+        table#total {
+            float:right;
+            margin-left:495px;
+            border-bottom:1px solid #8dcc0f;
+            border-right:1px solid #8dcc0f;
+            border-left:1px solid #8dcc0f;
+        }
+
+        table#total td {
+            height:20px;
+        }
+
+        #footer {
+            position:absolute;
+            bottom:0px;width:100%;
+            text-align:center;
+            line-height:25px;
+        }
+    </style>
+</head>
+<body>
+<img src="/var/www/html/Symfony/web/bundles/mikaplatform/img/Logo-Toutbois.png">
+<table id="enTete">
+    <tr>
+        <td colspan="1"></td>
+        <td colspan="1"><h1>Facture</h1></td>
+        <td colspan="1"></td>
+    </tr>
+    <tr>
+        <td width="80">Page</td>
+        <td width="100">Date</td>
+        <td width="120">Ref</td>
+    </tr>
+    <tr>
+        <td class="color">[[page_nb]]</td>
+        <td class="color">{{ facture.date|date('d-m-Y') }}</td>
+        <td class="color">{{ facture.products }}</td>
+    </tr>
+</table>
+<ul id="coordonnes">
+    <li>{{ facture.commande.livraison.nom }} {{ facture.commande.livraison.prenom }}</li>
+    <li>{{ facture.commande.livraison.numero}} {{ facture.commande.livraison.typevoie}} {{ facture.commande.livraison.nomvoie}}</li>
+    <li>{{ facture.commande.livraison.cp }} {{ facture.commande.livraison.ville }} - {{ facture.commande.livraison.pays }}</li>
+</ul>
+<table id="entity">
+    <tr>
+        <td width="280">DESIGNATION</td>
+        <td width="105">QUANTITE</td>
+        <td width="100">P.U - HT</td>
+        <td width="105">MONTANT HT</td>
+        <td width="105">MONTANT TTC</td>
+    </tr>
+    {% for produit in facture.commande.product %}
+        <tr>
+            <td class="color">{{ produit.reference }}</td>
+            <td class="color">{{ produit.quantite }}</td>
+            <td class="color">{{ produit.prixHT }} €</td>
+            <td class="color">{{ produit.prixHT * produit.quantite }} €</td>
+            <td class="color">{{ produit.prixTTC * produit.quantite }} €</td>
+        </tr>
+    {% endfor %}
+</table>
+<table id="total">
+    <tr>
+        <td width="110">TOTAL HT :</td>
+        <td width="100" class="color">{{ facture.commande.prixHT }} €</td>
+    </tr>
+    {% for key, tva in facture.commande.tva %}
+        <tr>
+            <td width="110">TVA <span class="color min">{{ key }}</span> :</td>
+            <td width="100" class="color">{{ tva }} €</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td width="110">TOTAL TTC :</td>
+        <td width="100" class="color">{{ facture.commande.prixTTC }} €</td>
+    </tr>
+</table>
+<div id="footer">
+    <br />
+</div>
+</body>
+</html>

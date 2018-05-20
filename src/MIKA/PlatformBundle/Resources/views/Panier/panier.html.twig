@@ -1,0 +1,90 @@
+
+{% extends "MIKAPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+    Panier - {{ parent() }}
+
+{% endblock %}
+
+{% set totalHT = 0 %}
+{% set totalTTC = 0 %}
+{% set refTva = {} %}
+{% for product in listProduct %}
+    {% set refTva = refTva|merge({ ('%' ~ product.tva.valeur) : 0 }) %}
+{% endfor %}
+
+{% block mikaplatform_body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                {% include '::menu.html.twig' %}
+            </div>
+            <div class="col-lg-10 col-md-10">
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                <h2>Panier</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Références</th>
+                            <th>Quantité</th>
+                            <th>Prix unitaire</th>
+                            <th>Total HT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if listProduct|length == 0 %}
+                        <tr>
+                            <td class="center" colspan="4">Aucun produit dans votre panier</td>
+                        </tr>
+                    {% endif %}
+                        {%  for product in listProduct %}
+                            <tr>
+                                <form action="{{ path('mika_platform_add_panier', {'id': product.id}) }}" method="get">
+                                    <td>{{ product.nameproduct }}</td>
+                                    <td>
+                                        <select name="qte" class="span1" onChange="this.form.submit()">
+                                            {% for i in 1..10 %}
+                                                <option value="{{ i }}" {% if i == panier[product.id] %} selected="selected" {% endif %}>
+                                                    {{ i }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                        <a href="{{ path('mika_platform_delete_panier', {'id': product.id}) }}"><i class="glyphicon glyphicon-trash"></i></a>
+                                    </td>
+                                    <td>{{ product.unitprice }}€</td>
+                                    <td>{{ product.unitprice * panier[product.id]}}€</td>
+                                </form>
+                            </tr>
+                            {% set totalHT = totalHT + (product.unitprice * panier[product.id]) %}
+                            {% set totalTTC = totalTTC + (product.unitprice * panier[product.id])|tva(product.tva.multiplicate) %}
+                            {% set refTva = refTva|merge({ ('%' ~ product.tva.valeur) : refTva['%' ~ product.tva.valeur] + ( product.unitprice * panier[product.id])|montantTva(product.tva.multiplicate) }) %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if listProduct|length != 0 %}
+                    <dl class="dl-horizontal pull-right">
+                        <dt>Total HT :</dt>
+                        <dd>{{ totalHT }}€</dd>
+                        {% for key, tva in refTva %}
+                            <dt>TVA {{ key }} :</dt>
+                            <dd>{{ tva }} €</dd>
+                        {% endfor %}
+                        <dt>Total:</dt>
+                        <dd>{{ totalTTC }}€</dd>
+                    </dl>
+                    <div class="clearfix"></div>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path('mika_platform_livraison') }}" class="btn btn-success pull-right">Valider mon panier</a>
+                    {% else %}
+                        <a href="{{ path('fos_user_security_login') }}" class="btn btn-success pull-right">Valider mon panier</a>
+                    {% endif %}
+                {% endif %}
+                <a href="{{ path('mika_platform_view',{'page':1}) }}" class="btn btn-primary">Continuer mes achats</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

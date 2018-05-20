@@ -1,0 +1,68 @@
+{% extends "MIKAPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - {{ product.nameproduct }}
+{% endblock %}
+{% block description %}
+    {{ product.designation }}
+{% endblock %}
+{% block mikaplatform_body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                {% include '::menu.html.twig' %}
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and not is_granted('ROLE_ADMIN') %}
+                    {{ render(controller('MIKAPlatformBundle:Panier:menu')) }}
+                    {% include 'MIKAUserBundle:User:userConnect.html.twig' %}
+                {% endif %}
+                {% if  is_granted('ROLE_ADMIN') %}
+                    {% include '::menuAdmin.html.twig' %}
+                {% endif %}
+            </div>
+            <div class="col-lg-10 col-md-10 detail">
+                <h2>{{ product.nameproduct }}</h2>
+                {# On vérifie qu'une image soit bien associée à l'annonce #}
+                {% if product.picture is not null %}
+                    <img src="{{ asset(product.picture.webPath) }}" alt="{{ product.picture.alt }}"/>
+                    <br>
+                {% endif %}
+                <i>Prix : {{ product.unitprice|tva(product.tva.multiplicate) }}€</i>
+                <div class="well">
+                    {{ product.designation }}
+                </div>
+                {% if not is_granted('ROLE_ADMIN') %}
+                    {% if panier[product.id] is not defined %}
+                        <form action="{{ path('mika_platform_add_panier', { 'id' : product.id }) }}" method="get">
+                            <select name="qte" class="span1">
+                                {% for i in 1..10 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                            <div>
+                                <button class="btn btn-primary">Ajouter au panier</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <a href="{{ path('mika_platform_panier') }}" class="btn btn-primary">Le produit est déja dans votre panier</>
+                    {% endif %}
+                {% endif %}
+                <p>
+                    <a href="{{ path('mika_platform_view', {'page' : '1'}) }}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Retour à la liste
+                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('mika_platform_edit', {'id': product.id}) }}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            Modifier le produit
+                        </a>
+                        <a href="{{ path('mika_platform_delete', {'id': product.id}) }}" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-trash"></i>
+                            Supprimer le produit
+                        </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

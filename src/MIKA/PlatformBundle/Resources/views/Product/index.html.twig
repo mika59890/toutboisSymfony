@@ -1,0 +1,25 @@
+{% extends "MIKAPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block mikaplatform_body %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2 col-md-2">
+            {% include '::menu.html.twig' %}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and not is_granted('ROLE_ADMIN') %}
+                {{ render(controller('MIKAPlatformBundle:Panier:menu')) }}
+                {% include 'MIKAUserBundle:User:userConnect.html.twig' %}
+            {% endif %}
+            {% if  is_granted('ROLE_ADMIN') %}
+                {% include '::menuAdmin.html.twig' %}
+            {% endif %}
+        </div>
+        <div class="col-lg-10 col-md-10">
+            <h2>Accueil</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}

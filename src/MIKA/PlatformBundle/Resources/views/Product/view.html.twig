@@ -1,0 +1,49 @@
+{% extends "MIKAPlatformBundle::layout.html.twig" %}
+{% block title %}
+    Catalogue - {{ parent() }}
+{% endblock %}
+{% block mikaplatform_body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                {% include '::menu.html.twig' %}
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and not is_granted('ROLE_ADMIN') %}
+                    {{ render(controller('MIKAPlatformBundle:Panier:menu')) }}
+                    {% include 'MIKAUserBundle:User:userConnect.html.twig' %}
+                {% endif %}
+                {% if  is_granted('ROLE_ADMIN') %}
+                    {% include '::menuAdmin.html.twig' %}
+                {% endif %}
+            </div>
+            <div class="col-lg-10 col-md-10">
+                <h2>Liste des produits {% if categorie is not null %}{{ "de la catégorie " }}{{ categorie.name }}{% endif %}</h2>
+                <ul class="thumbnails">
+                    {% for product in listProducts %}
+                        <li class="col-lg-4 col-md-4">
+                            <div class="thumbnail product">
+                                <h3>{{ product.nameproduct }}</h3>
+                                <img src="{{ asset(product.picture.webPath) }}" alt="{{ product.picture.alt }}"/>
+                                <br>
+                                <div class="caption">
+                                    <p>Prix : {{ product.unitprice|tva(product.tva.multiplicate) }}€</p>
+                                    <br>
+                                    <a class="btn btn-primary" href="{{ path('mika_platform_detail', { 'id' : product.id }) }}">Plus d'infos</a>
+                                    {% if panier[product.id] is not defined %}
+                                        {% if not is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-success" href="{{ path('mika_platform_add_panier', { 'id' : product.id }) }}">Ajouter au panier</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li>Pas (encore !) de produits</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="navigation col-lg-offset-3 col-md-offset-3 col-lg-5 col-md-5">
+                {{ knp_pagination_render(listProducts) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

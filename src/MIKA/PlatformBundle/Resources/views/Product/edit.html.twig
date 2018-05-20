@@ -1,0 +1,24 @@
+{% extends "MIKAPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+    Modifier un produit - {{ parent() }}
+{% endblock %}
+
+{% block mikaplatform_body %}
+    <div class="bodycenter">
+        <h2>Modifier un produit</h2>
+
+        {{ include("MIKAPlatformBundle:Product:form.html.twig") }}
+
+        <p>
+            Vous éditez un produit déjà existant.
+        </p>
+
+        <p>
+            <a href="{{ path('mika_platform_detail', {'id': product.id}) }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour à l'annonce
+            </a>
+        </p>
+    </div>
+{% endblock %}

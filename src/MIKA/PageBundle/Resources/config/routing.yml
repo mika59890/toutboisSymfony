@@ -1,0 +1,3 @@
+mika_page_page:
+    path:     /page/{id}
+    defaults: { _controller: MIKAPageBundle:Page:page }

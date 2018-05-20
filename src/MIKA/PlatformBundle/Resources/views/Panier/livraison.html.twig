@@ -1,0 +1,21 @@
+{% extends "MIKAPlatformBundle::layout.html.twig" %}
+{% block title %}
+    Panier - {{ parent() }}
+{% endblock %}
+{% block mikaplatform_body %}
+<div class="container center" >
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h2>Vérification d'information</h2>
+            <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    {% include '::formShow.html.twig' %}
+                </div>
+                <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-success pull-center">Modifier mes informations</a>
+                <a href="{{ path('mika_platform_validation') }}" class="btn btn-success pull-center">Valider mes informations</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "MIKAPlatformBundle::layout.html.twig" %}
+
+{% block body %}
+    <div class="bodycenter">
+        <h2>Ajouter un produit</h2>
+
+            {{ include("MIKAPlatformBundle:Product:form.html.twig") }}
+
+        <p>
+            Attention : cette annonce sera ajoutée directement
+            sur la page d'accueil après validation du formulaire.
+        </p>
+    </div>
+{% endblock %}

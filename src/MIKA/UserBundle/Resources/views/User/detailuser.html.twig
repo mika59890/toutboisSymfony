@@ -1,0 +1,23 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                {% include '::menu.html.twig' %}
+                {% include '::menuAdmin.html.twig' %}
+            </div>
+            <div class="col-lg-10 col-md-10">
+            <h1>Détail utilisateur</h1>
+                <h4> {{ user.name }} {{ user.firstname }} :</h4>
+                <p>{{ user.streetnumber }} {{ user.channeltype }} {{ user.street }} </p>
+                <p>{{ user.postalcode }} {{ user.city }} {{ user.country }} </p>
+                <br>
+                <p>Nom utilisateur : {{ user.username }}</p>
+                <p>Dernière connexion : {{ user.lastLogin |date('d-m-Y H:i:s') }}</p>
+                <p>Email : {{ user.email }}</p>
+                <p>Téléphone : {{ user.phone }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

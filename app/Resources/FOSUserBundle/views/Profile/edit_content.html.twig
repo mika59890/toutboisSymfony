@@ -1,0 +1,8 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="center">
+    <h2>Modifier mes informations</h2>
+    {{ form_start(form, { 'method': 'post','action': path('fos_user_profile_edit'), 'attr': { 'class': 'form-horizontal' } }) }}
+        {{ include("MIKAUserBundle:User:formEdit.html.twig") }}
+    {{ form_end(form) }}
+</div>
+

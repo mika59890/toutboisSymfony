@@ -1,0 +1,38 @@
+{% extends '::layout.html.twig' %}
+
+{% block body -%}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                {% include '::menu.html.twig' %}
+                {% include '::menuAdmin.html.twig' %}
+            </div>
+            <div class="col-lg-10 col-md-10">
+            <h1>Liste des utilisateurs</h1>
+
+            <table class="table backTable ">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="table-active">{{ user.username }}</td>
+                        <td class="table-active">
+                            <a href="{{ path('mika_platform_adminUserDetail', { 'id': user.id }) }}" title="Détail"><i class="glyphicon glyphicon-book"></i></a>
+
+                            {% if user.commandes|length != 0 %}
+                                <a href="{{ path('mika_platform_adminFactureUser', { 'id': user.id }) }}" title="Consulter les factures"><i class="glyphicon glyphicon-book"></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

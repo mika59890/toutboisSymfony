@@ -1,0 +1,8 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="center">
+   <h2>Inscription</h2>
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-horizontal'}}) }}
+      {{ include("MIKAUserBundle:User:form.html.twig") }}
+    {{ form_end(form) }}
+</div>
+

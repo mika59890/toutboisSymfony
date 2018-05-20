@@ -1,0 +1,26 @@
+services:
+#    mika_platform.example:
+#        class: MIKA\PlatformBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    tva:
+        class: MIKA\PlatformBundle\Twig\TvaExtension
+        tags:
+            - { name: twig.extension }
+
+    montantTva:
+        class: MIKA\PlatformBundle\Twig\MontantTvaExtension
+        tags:
+            - { name: twig.extension }
+
+    setNewReference:
+        class: MIKA\PlatformBundle\Services\GetReference
+        arguments:
+            - "@security.authorization_checker"
+            - "@doctrine.orm.entity_manager"
+
+    setNewFacture:
+        class: MIKA\PlatformBundle\Services\GetFacture
+        arguments:
+            - "@service_container"
+

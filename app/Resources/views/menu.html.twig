@@ -1,0 +1,12 @@
+<div class="well">
+    <ul class="nav nav-list">
+        <li class="nav-header">Menu</li>
+        <li class="active">
+            <a href="{{path('mika_platform_view',{'page':1})}}">Catalogue</a>
+        </li>
+        <li class="active">{{ render(controller('MIKAPlatformBundle:Category:menu')) }}</li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="active"><a href="{{path('mika_platform_add')}}">Ajouter un produit</a></li>
+        {% endif %}
+    </ul>
+</div>

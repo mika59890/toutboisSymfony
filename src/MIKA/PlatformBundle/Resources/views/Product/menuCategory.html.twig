@@ -1,0 +1,11 @@
+
+<form class="transparent">
+    <select onChange="location.href=''+this.options[this.selectedIndex].value;">
+        <option selected class="active"><a href="#">Catégories</a></option>
+        {% for categories in category %}
+            <option value="{{ path('mika_platform_categorieProduct', { 'categories' : categories.id }) }}">
+                {{ categories.name }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
